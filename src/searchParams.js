@@ -1,5 +1,6 @@
 // searchParameter component
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import ThemeContext from "./ThemeContext";
 import useBreedList from "./useBreedList";
 import Results from "./Results";
 
@@ -20,7 +21,7 @@ const SearchParams = () => {
   const [breed, setBreed] = useState("");
   const [pets, setPets] = useState([]);
   const [breeds] = useBreedList(animal);
-
+  const [themeHook, setThemeHook] = useContext(ThemeContext);
   /* 
   useEffect to grab an API, the [] is to stop the request from constantly re-rendering on request, we define when we want it to re-render again, so we can call the effect if specified.*/
 
@@ -47,8 +48,9 @@ const SearchParams = () => {
   }
 
   return (
-    <div className="search-params">
+    <div className="my-0 mx-auto w-11/12">
       <form
+        className="p-10 mb-10 rounded-lg bg-gray-200 shadow-lg flex flex-col justify-center items-center divide-y divide-gray-900"
         onSubmit={(e) => {
           /* Using onClick is a handler we can use, but onSubmit allows the user to hit enter and click button to sumbit the form.
           e.preventDefault stops the form from reloading/refreshing the page */
@@ -56,9 +58,10 @@ const SearchParams = () => {
           requestPets();
         }}
       >
-        <label htmlFor="location">
+        <label className="search-label" htmlFor="location">
           Location
           <input
+            className="search-control"
             onCut={console.log}
             id="location"
             onChange={(e) => setLocation(e.target.value)}
@@ -66,9 +69,10 @@ const SearchParams = () => {
             placeholder="Location"
           />
         </label>
-        <label htmlFor="animal">
+        <label className="search-label" htmlFor="animal">
           Animal
           <select
+            className="search-control"
             id="animal"
             value={animal}
             onChange={(e) => setAnimal(e.target.value)}
@@ -82,9 +86,11 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <label htmlFor="breed">
+        <label className="search-label" htmlFor="breed">
           Breed
           <select
+            className="search-control disabled:opacity-50"
+            disabled={!breeds.length}
             id="breed"
             value={breed}
             onChange={(e) => setBreed(e.target.value)}
@@ -98,7 +104,26 @@ const SearchParams = () => {
             ))}
           </select>
         </label>
-        <button>Submit</button>
+        <label className="search-label" htmlFor="theme">
+          Theme
+          <select
+            className="search-control"
+            value={themeHook}
+            onChange={(e) => setThemeHook(e.target.value)}
+            onBlur={(e) => setThemeHook(e.target.value)}
+          >
+            <option value="orange">Orange</option>
+            <option value="peru">Peru</option>
+            <option value="teal">Teal</option>
+            <option value="mediumorchid">Medium Orchid</option>
+          </select>
+        </label>
+        <button
+          className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+          style={{ background: themeHook }}
+        >
+          Submit
+        </button>
       </form>
       <Results pets={pets} />
     </div>
