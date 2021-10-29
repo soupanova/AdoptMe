@@ -119,7 +119,7 @@ const SearchParams = () => {
           </select>
         </label>
         <button
-          className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+          className="rounded px-6 py-2 text-white hover:opacity-80 border-none"
           style={{ background: themeHook }}
         >
           Submit
