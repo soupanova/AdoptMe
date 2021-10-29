@@ -48,17 +48,19 @@ class Details extends Component {
       this.state;
 
     return (
-      <div className="my-0 mx-auto w-11/12">
-        <Carousel images={images} />
+      <div className="m-8 rounded-lg flex flex-col justify-center items-center">
         <div>
-          <h1>{name}</h1>
-          <h2>
-            {animal} - {breed} - {city}, {state}
-          </h2>
+          <div className="mx-0 my-5">
+            <h1 className="text-5xl">{name}</h1>
+            <h2 className="text-2xl">
+              {animal} - {breed} - {city}, {state}
+            </h2>
+          </div>
+          <Carousel images={images} />
           <ThemeContext.Consumer>
             {([themeHook]) => (
               <button
-                className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+                className="my-5 rounded px-6 py-2 text-white hover:opacity-80 border-none"
                 onClick={this.toggleModal}
                 style={{ backgroundColor: themeHook }}
               >
@@ -72,14 +74,19 @@ class Details extends Component {
               <div>
                 <h1>Would you like to adpot {name}?</h1>
                 <div>
+                  <ThemeContext.Consumer>
+                    {([themeHook]) => (
+                      <button
+                        className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm"
+                        style={{ background: themeHook }}
+                        onClick={this.adopt}
+                      >
+                        Yes
+                      </button>
+                    )}
+                  </ThemeContext.Consumer>
                   <button
-                    className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
-                    onClick={this.adopt}
-                  >
-                    Yes
-                  </button>
-                  <button
-                    className="rounded px-6 py-2 text-white hover:opacity-50 border-none"
+                    className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                     onClick={this.toggleModal}
                   >
                     No
